@@ -27,13 +27,15 @@ services:
       - "67:67/udp"
       - "80:80/tcp"
     environment:
-      WEBPASSWORD: 'PUT_YOUR_PIHOLE_WEB_PASSWORD_HERE'
+      WEBPASSWORD: 'admin'
       DNS1: 192.168.253.3
       DNS2: "no"
+      DNSMASQ_LISTENING: 'all'
+      TZ: 'Europe/London'
     # Volumes store your data between container upgrades
     volumes:
-       - './etc-pihole/:/etc/pihole/'
-       - './etc-dnsmasq.d/:/etc/dnsmasq.d/'
+      - './etc-pihole/:/etc/pihole:z'
+      - './etc-dnsmasq.d/:/etc/dnsmasq.d:z'
     dns:
       - 127.0.0.1
     # Recommended but not required (DHCP needs NET_ADMIN)
